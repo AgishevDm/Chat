@@ -1,0 +1,109 @@
+﻿<Window x:Class="Chat.ChatScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chat"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Chat" Height="620" Width="390"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing" ResizeMode="NoResize">
+    <Grid Background="#957C74">
+        <Border Name="Screen" Width="340" Height="555" Background="#ECE2DF" VerticalAlignment="Center" MaxWidth="350" CornerRadius="15,15,15,15" Margin="2,2,2,2">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="30" Color="#523A33" ShadowDepth="0"></DropShadowEffect>
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="6*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock  Text="Общий чат" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center" Name="ChatName" Grid.Column="1"/>
+                        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Background="#ECE2DF" BorderBrush="#ECE2DF" Cursor="Hand" Margin="0 2 10 0" Click="Users_Click">
+                            <Image x:Name="myImage" Source="Images/user.png" Width="22" Height="22" />
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Ellipse Width="30" Height="30" Fill="{TemplateBinding Background}"/>
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="1">
+                    <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"
+   					 Name="MessagesList" Focusable="False"
+   					 HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Height" Value="52"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <ListBoxItem>
+                                    <Border>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding Sender}" FontWeight="Bold" TextWrapping="Wrap" />
+                                            <TextBlock Text="{Binding Message}"  TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </Border>
+                                </ListBoxItem>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+                <Border Grid.Row="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="200*"/>
+                            <ColumnDefinition Width="45*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="MessageBox" Width="275" Height="50" Grid.Column="0" materialDesign:HintAssist.Hint="Сообщение" FontSize="16"
+                         materialDesign:HintAssist.Foreground="#523A33" materialDesign:TextFieldAssist.UnderlineBrush="#523A33"
+                         materialDesign:HintAssist.IsFloating="True" 
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True" Style="{StaticResource ResourceKey=MaterialDesignFloatingHintTextBox}"
+                         PreviewKeyDown="TextBox_PreviewKeyDown" Grid.ColumnSpan="2" Margin="11,5,12,5"/>
+
+                        <Button
+                            Style="{StaticResource MaterialDesignFloatingActionButton}"
+                            Width="30"
+                            Height="30"
+                            Margin="2,15,0,15"
+                            Background="#745F59" BorderBrush="#745F59"
+                            HorizontalAlignment="Left"
+                            IsDefault="True" Cursor="Hand"
+                            Grid.Column="2" Name="SendButton" Click="SendButton_Click"
+                            >
+                            <Image x:Name="sendButton" Source="Images/send.png" Width="22" Height="22" />
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Ellipse Width="30" Height="30" Fill="{TemplateBinding Background}"/>
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>
